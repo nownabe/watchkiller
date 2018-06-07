@@ -54,12 +54,11 @@ func main() {
 		if exiterr, ok := err.(*exec.ExitError); ok {
 			if status, ok := exiterr.Sys().(syscall.WaitStatus); ok {
 				sugar.Errorf("Command %s exited with status code %d.", args[0], status.ExitStatus())
-				os.Exit(status.ExitStatus())
 			}
 		} else {
 			sugar.Fatalf("Failed to wait command. %s", err)
 		}
+	} else {
+		sugar.Infof("Command %s exited successfully.", args[0])
 	}
-
-	sugar.Infof("Command %s exited successfully.", args[0])
 }
